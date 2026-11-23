@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1a2744">
+  <title>Atelier Friday — Outils</title>
+  <style>
+    :root{--navy:#1a2744;--gold:#c9a227;--green:#0d5f4a;--bg:#f5f7f6;--card:#fff;--ink:#0f1f1a;--muted:#5a6b65;--line:#e2e8f0;--radius:16px;--shadow:0 4px 20px rgba(0,0,0,.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;padding:24px 16px 48px}
+    .wrap{max-width:720px;margin:0 auto}
+    header{text-align:center;margin-bottom:40px}
+    header h1{font-size:28px;color:var(--navy);margin-bottom:4px}
+    header p{color:var(--muted);font-size:15px}
+    .tools{display:flex;flex-direction:column;gap:20px}
+    .tool{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+      padding:24px;box-shadow:var(--shadow);text-decoration:none;color:inherit;
+      display:block;transition:transform .15s,box-shadow .15s}
+    .tool:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.12)}
+    .tool-header{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+    .tool-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;
+      justify-content:center;font-size:22px;flex-shrink:0}
+    .tool-icon.o1{background:#fef3c7;color:#92400e}
+    .tool-icon.o2{background:#dbeafe;color:#1e3a8a}
+    .tool-icon.o3{background:#dcfce7;color:#166534}
+    .tool-name{font-size:20px;font-weight:700;color:var(--navy)}
+    .tool-tag{font-size:12px;color:var(--muted);font-weight:500;text-transform:uppercase;
+      letter-spacing:1px;margin-top:2px}
+    .tool-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+    .tool-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;
+      font-weight:600;color:var(--navy);text-decoration:none}
+    .tool-link:hover{text-decoration:underline}
+    .tool-features{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+    .tool-features li{font-size:12px;background:var(--bg);color:var(--muted);padding:4px 10px;
+      border-radius:999px;font-weight:500}
+    footer{text-align:center;margin-top:40px;color:var(--muted);font-size:13px}
+    @media(max-width:480px){.tool-header{flex-direction:column;text-align:center}
+      .tool-features{justify-content:center}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Atelier Friday</h1>
+      <p>Trois outils mobiles-first, sans serveur ni compte</p>
+    </header>
+
+    <div class="tools">
+      <a class="tool" href="outil1-reservation/index.html">
+        <div class="tool-header">
+          <div class="tool-icon o1">✂️</div>
+          <div>
+            <div class="tool-name">Outil 1 — Réservation WhatsApp</div>
+            <div class="tool-tag">Camélia Hair · Cotonou</div>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Mini-page de réservation pour un salon de coiffure. Le client choisit un style parmi 16 coiffures (avec photo), une date, une heure, puis envoie un message WhatsApp prérempli au salon. 5 écrans, 1 geste par écran.
+        </p>
+        <ul class="tool-features">
+          <li>16 styles de tresses</li>
+          <li>Catégories (Braids/Cornrows/Twists)</li>
+          <li>WhatsApp prérempli</li>
+          <li>PWA offline</li>
+        </ul>
+        <span class="tool-link">Ouvrir l'outil →</span>
+      </a>
+
+      <a class="tool" href="outil2-presentation/index.html">
+        <div class="tool-header">
+          <div class="tool-icon o2">⚖️</div>
+          <div>
+            <div class="tool-name">Outil 2 — Page de présentation</div>
+            <div class="tool-tag">Cabinet Maître Akoha · Cotonou</div>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Page vitrine pour un cabinet d'avocat. Hero, expertises, présentation, galerie, horaires, adresse et contact. Conçue pour être trouvée sur Google (SEO) et envoyer un message WhatsApp au cabinet.
+        </p>
+        <ul class="tool-features">
+          <li>8 domaines d'expertise</li>
+          <li>SEO (JSON-LD, sitemap)</li>
+          <li>Statut d'ouverture en temps réel</li>
+          <li>Footer professionnel</li>
+        </ul>
+        <span class="tool-link">Ouvrir l'outil →</span>
+      </a>
+
+      <a class="tool" href="outil3-creances/index.html">
+        <div class="tool-header">
+          <div class="tool-icon o3">💰</div>
+          <div>
+            <div class="tool-name">Outil 3 — Carnet « Qui me doit ? »</div>
+            <div class="tool-tag">Camélia Hair · Cotonou</div>
+          </div>
+        </div>
+        <p class="tool-desc">
+          Carnet de créances pour le salon. Ajouter une cliente, un montant, une échéance. Marquer payé ou partiellement payé. Relancer sur WhatsApp en 1 clic. Export CSV pour Excel. Données sur le téléphone.
+        </p>
+        <ul class="tool-features">
+          <li>Recherche et tri</li>
+          <li>Paiement partiel</li>
+          <li>Relance WhatsApp</li>
+          <li>Export CSV (Excel FR)</li>
+        </ul>
+        <span class="tool-link">Ouvrir l'outil →</span>
+      </a>
+    </div>
+
+    <footer>
+      <p>HTML / CSS / JS vanilla · PWA · Zéro serveur · Zéro compte</p>
+    </footer>
+  </div>
+</body>
+</html>
