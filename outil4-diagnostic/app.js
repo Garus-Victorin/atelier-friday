@@ -151,8 +151,10 @@
     chatArea.style.display = "none";
     errorArea.hidden = false;
     $("error-text").textContent = T.msg_erreur;
-    $("error-wa").href = "https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent("Bonjour, j'ai un problème avec l'assistant IA de diagnostic.");
-    $("error-wa").addEventListener("click", function(e){ e.preventDefault(); window.location.href = $("error-wa").href; });
+    var fabWa = $("error-wa");
+    fabWa.href = "https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent("Bonjour, j'ai un problème avec l'assistant IA de diagnostic.");
+    fabWa.classList.add("visible");
+    fabWa.addEventListener("click", function(e){ e.preventDefault(); window.location.href = fabWa.href; });
   }
 
   function generateResult(){

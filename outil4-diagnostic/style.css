@@ -101,18 +101,13 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1
 .btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--muted)}
 .btn-ghost:active{background:var(--bg)}
 
-/* ERROR */
-.error-area{flex:1;display:flex;align-items:center;justify-content:center;padding:24px}
-.error-content{display:flex;align-items:center;gap:12px;background:var(--card);
-  border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);
-  max-width:480px;width:100%}
-.error-content svg{color:var(--danger);flex-shrink:0}
-.error-content p{font-size:14px;color:var(--muted);flex:1;line-height:1.5}
-.btn-wa-right{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;
-  border-radius:999px;background:var(--accent);color:#fff;font-size:13px;
-  font-weight:600;text-decoration:none;flex-shrink:0;white-space:nowrap;
-  transition:transform .15s}
-.btn-wa-right:active{transform:scale(.95)}
+/* FAB WHATSAPP */
+.fab-wa{position:fixed;right:20px;bottom:20px;width:58px;height:58px;border-radius:50%;
+  background:var(--accent);color:#fff;display:none;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(22,163,74,.35);z-index:40;text-decoration:none;
+  transition:transform .2s}
+.fab-wa.visible{display:flex}
+.fab-wa:hover{transform:scale(1.08)}
 
 /* ANIMATIONS */
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
