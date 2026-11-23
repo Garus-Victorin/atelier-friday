@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d5f4a">
+  <title>Qui me doit ? — Camélia Hair</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="top-row">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div>
+            <h1>Qui me doit ?</h1>
+            <p class="sub" id="sub-titre">Camélia Hair — Cotonou</p>
+          </div>
+        </div>
+        <div class="total-card">
+          <span class="total-label">Total dû</span>
+          <span class="total-value" id="total-value">0 F</span>
+          <span class="total-count" id="total-count"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="databar">
+    <div class="wrap">
+      <span>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Vos données restent sur ce téléphone
+      </span>
+      <button id="btn-export" class="link">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exporter Excel
+      </button>
+    </div>
+  </div>
+
+  <div class="searchbar">
+    <div class="wrap">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search" placeholder="Rechercher une cliente..." autocomplete="off">
+      </div>
+      <div class="sort-tabs">
+        <button class="sort-tab active" data-sort="date">Par date</button>
+        <button class="sort-tab" data-sort="nom">Par nom</button>
+        <button class="sort-tab" data-sort="montant">Par montant</button>
+      </div>
+    </div>
+  </div>
+
+  <main id="liste" class="wrap">
+    <ul id="list" class="list"></ul>
+    <div class="empty" id="empty" hidden>
+      <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <p>Aucune créance pour le moment</p>
+      <p class="empty-hint">Appuyez sur + pour ajouter une cliente</p>
+    </div>
+  </main>
+
+  <button id="btn-add" class="fab" aria-label="Ajouter une créance">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+
+  <div class="sheet" id="sheet-form" hidden>
+    <form id="form" class="sheet-inner">
+      <div class="sheet-header">
+        <h2>Nouvelle créance</h2>
+        <button type="button" class="sheet-close" id="form-cancel" aria-label="Fermer">✕</button>
+      </div>
+      <div class="field">
+        <label>Nom de la cliente *</label>
+        <input type="text" id="f-nom" required autocomplete="name" placeholder="Ex. Awa Koné">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Montant (F) *</label>
+          <input type="number" id="f-montant" required min="1" step="1" inputmode="numeric" placeholder="Ex. 15000">
+        </div>
+        <div class="field">
+          <label>Échéance *</label>
+          <input type="date" id="f-echeance" required>
+        </div>
+      </div>
+      <div class="field">
+        <label>Téléphone</label>
+        <input type="tel" id="f-tel" inputmode="tel" placeholder="Pour la relance WhatsApp">
+      </div>
+      <div class="field">
+        <label>Motif (facultatif)</label>
+        <input type="text" id="f-motif" placeholder="Ex. Tresses + produit">
+      </div>
+      <div class="sheet-actions">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="sheet" id="sheet-detail" hidden>
+    <div class="sheet-inner">
+      <div class="sheet-header">
+        <h2 id="d-titre">Détail</h2>
+        <button type="button" class="sheet-close" id="d-back" aria-label="Fermer">✕</button>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">Montant total</span>
+          <span class="detail-value" id="d-montant"></span>
+        </div>
+        <div class="detail-item highlight">
+          <span class="detail-label">Reste à payer</span>
+          <span class="detail-value" id="d-reste"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Déjà payé</span>
+          <span class="detail-value" id="d-paye"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Échéance</span>
+          <span class="detail-value" id="d-echeance"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Motif</span>
+          <span class="detail-value" id="d-motif"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Téléphone</span>
+          <span class="detail-value" id="d-tel"></span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Statut</span>
+          <span class="detail-value" id="d-statut"></span>
+        </div>
+      </div>
+      <h3 class="sec-title">Historique des paiements</h3>
+      <ul id="d-histo" class="histo"></ul>
+      <div class="sheet-actions">
+        <button class="btn btn-primary" id="d-pay">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Payé
+        </button>
+        <button class="btn btn-primary" id="d-part">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Partiel
+        </button>
+        <button class="btn btn-accent" id="d-relance">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2z"/></svg>
+          Relancer
+        </button>
+      </div>
+      <div class="sheet-footer-actions">
+        <button class="btn btn-outline" id="d-edit">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Modifier
+        </button>
+        <button class="btn btn-danger" id="d-del">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 0-2 2H7a2 2 0 0 0-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheet-part" hidden>
+    <form id="form-part" class="sheet-inner">
+      <div class="sheet-header">
+        <h2>Paiement partiel</h2>
+        <button type="button" class="sheet-close" id="p-cancel" aria-label="Fermer">✕</button>
+      </div>
+      <p class="hint" id="p-reste"></p>
+      <div class="field">
+        <label>Montant reçu (F)</label>
+        <input type="number" id="p-montant" required min="1" step="1" inputmode="numeric" placeholder="Ex. 5000">
+      </div>
+      <div class="sheet-actions">
+        <button type="submit" class="btn btn-primary">Valider le paiement</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="sheet" id="sheet-edit" hidden>
+    <form id="form-edit" class="sheet-inner">
+      <div class="sheet-header">
+        <h2>Modifier la créance</h2>
+        <button type="button" class="sheet-close" id="e-cancel" aria-label="Fermer">✕</button>
+      </div>
+      <div class="field">
+        <label>Nom de la cliente *</label>
+        <input type="text" id="e-nom" required autocomplete="name">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Montant (F) *</label>
+          <input type="number" id="e-montant" required min="1" step="1" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label>Échéance *</label>
+          <input type="date" id="e-echeance" required>
+        </div>
+      </div>
+      <div class="field">
+        <label>Téléphone</label>
+        <input type="tel" id="e-tel" inputmode="tel">
+      </div>
+      <div class="field">
+        <label>Motif (facultatif)</label>
+        <input type="text" id="e-motif">
+      </div>
+      <div class="sheet-actions">
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    }
+  </script>
+</body>
+</html>
