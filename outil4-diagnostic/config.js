@@ -1,7 +1,7 @@
 window.CONFIG = {
   nom: "LEBIATECH",
   slogan: "Assistant IA de diagnostic",
-  whatsapp: "2290142102739",
+  whatsapp: "2290162555818",
   contact_url: "https://lebiatech.com/contact",
   max_messages: 20,
   max_questions: 7,

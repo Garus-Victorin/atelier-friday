@@ -40,7 +40,18 @@
     div.className = "msg " + type;
     var avatar = document.createElement("div");
     avatar.className = "msg-avatar";
-    avatar.textContent = type === "ai" ? "IA" : "V";
+    if (type === "ai") {
+      var avatarImg = document.createElement("img");
+      avatarImg.src = "assets/favicon-96x96.webp";
+      avatarImg.alt = "IA";
+      avatarImg.style.width = "100%";
+      avatarImg.style.height = "100%";
+      avatarImg.style.borderRadius = "50%";
+      avatarImg.style.objectFit = "cover";
+      avatar.appendChild(avatarImg);
+    } else {
+      avatar.textContent = "V";
+    }
     var bubble = document.createElement("div");
     bubble.className = "msg-bubble";
     bubble.textContent = text;
@@ -57,7 +68,14 @@
     div.id = "typing";
     var avatar = document.createElement("div");
     avatar.className = "msg-avatar";
-    avatar.textContent = "IA";
+    var avatarImg = document.createElement("img");
+    avatarImg.src = "assets/favicon-96x96.webp";
+    avatarImg.alt = "IA";
+    avatarImg.style.width = "100%";
+    avatarImg.style.height = "100%";
+    avatarImg.style.borderRadius = "50%";
+    avatarImg.style.objectFit = "cover";
+    avatar.appendChild(avatarImg);
     var bubble = document.createElement("div");
     bubble.className = "msg-bubble";
     bubble.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
@@ -135,7 +153,14 @@
     div.className = "msg ai";
     var avatar = document.createElement("div");
     avatar.className = "msg-avatar";
-    avatar.textContent = "IA";
+    var avatarImg = document.createElement("img");
+    avatarImg.src = "assets/favicon-96x96.webp";
+    avatarImg.alt = "IA";
+    avatarImg.style.width = "100%";
+    avatarImg.style.height = "100%";
+    avatarImg.style.borderRadius = "50%";
+    avatarImg.style.objectFit = "cover";
+    avatar.appendChild(avatarImg);
     var bubble = document.createElement("div");
     bubble.className = "msg-bubble";
     bubble.textContent = T.msg_limite;
