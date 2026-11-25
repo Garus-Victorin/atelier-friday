@@ -105,10 +105,19 @@
     .step p{font-size:14px;color:var(--muted);line-height:1.5;max-width:220px;margin:0 auto}
 
     /* FOOTER */
-    .footer{background:var(--navy);color:rgba(255,255,255,.7);padding:40px 20px;
-      text-align:center;font-size:14px;margin-top:auto}
+    .footer{background:var(--navy);color:rgba(255,255,255,.7);padding:48px 20px 24px;
+      font-size:14px;margin-top:auto}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:32px;margin-bottom:32px}
+    .footer-col h4{font-size:12px;color:var(--gold);text-transform:uppercase;
+      letter-spacing:1.5px;margin-bottom:12px;font-weight:600}
+    .footer-col p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.5);margin-bottom:8px}
+    .footer-col a{display:block;color:rgba(255,255,255,.6);text-decoration:none;
+      font-size:13px;margin-bottom:6px;transition:color .15s}
+    .footer-col a:hover{color:var(--gold-light)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;
+      text-align:center;font-size:12px;color:rgba(255,255,255,.4)}
     .footer strong{color:var(--gold-light)}
-    .footer .tagline{font-size:12px;color:rgba(255,255,255,.4);margin-top:8px}
 
     @media(max-width:640px){
       .hero{padding:48px 16px 40px}
@@ -296,9 +305,27 @@
 
   <div class="footer">
     <div class="wrap">
-      <p><strong>Atelier Friday</strong> — Outils numériques pour petites activités</p>
-      <p class="tagline">Conçu pour fonctionner sur téléphone, même avec une connexion lente.</p>
-      <p class="tagline" style="margin-top:12px">Réalisé par <strong>LEBIATECH</strong></p>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Atelier Friday</h4>
+          <p>Outils numériques pour petites activités. Fonctionne sur téléphone, même avec une connexion lente.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Les outils</h4>
+          <a href="outil1-reservation/index.html">Réservation WhatsApp</a>
+          <a href="outil2-presentation/index.html">Page de présentation</a>
+          <a href="outil3-creances/index.html">Carnet Qui me doit ?</a>
+          <a href="outil4-diagnostic/index.html">Assistant IA de diagnostic</a>
+        </div>
+        <div class="footer-col">
+          <h4>LEBIATECH</h4>
+          <p>Réalisé par LEBIATECH</p>
+          <a href="https://lebiatech.com" target="_blank" rel="noopener">lebiatech.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Atelier Friday — Tous droits réservés</p>
+      </div>
     </div>
   </div>
 </body>
