@@ -4,9 +4,9 @@ window.CONFIG = {
   ville: "Cotonou",
   pays: "Bénin",
   baseline: "Maître AVERY — Avocat au Barreau de Cotonou",
-  whatsapp: "2290100000000",
-  telephone: "+229 01 00 00 00 00",
-  tel_href: "tel:+2290100000000",
+  whatsapp: "22953631367",
+  telephone: "+229 01 53 63 13 67",
+  tel_href: "tel:+2290153631367",
   email: "contact@cabinet-avery.bj",
 
   adresse: {
