@@ -58,16 +58,18 @@
     if (pres) pres.textContent = C.presentation || "";
 
     var gal = document.getElementById("galerie-grid");
-    gal.innerHTML = C.photos.map(function(p, i){
-      return '<figure data-i="' + i + '"><img src="' + esc(p.src) + '" alt="' + esc(p.alt) +
-        '" loading="lazy"><figcaption>' + esc(p.legende || "") + '</figcaption></figure>';
-    }).join("");
-    gal.querySelectorAll("[data-i]").forEach(function(fig){
-      fig.addEventListener("click", function(){
-        var i = +fig.dataset.i;
-        openLightbox(C.photos[i]);
+    if (gal && C.photos) {
+      gal.innerHTML = C.photos.map(function(p, i){
+        return '<figure data-i="' + i + '"><img src="' + esc(p.src) + '" alt="' + esc(p.alt) +
+          '" loading="lazy"><figcaption>' + esc(p.legende || "") + '</figcaption></figure>';
+      }).join("");
+      gal.querySelectorAll("[data-i]").forEach(function(fig){
+        fig.addEventListener("click", function(){
+          var i = +fig.dataset.i;
+          openLightbox(C.photos[i]);
+        });
       });
-    });
+    }
 
     var t = document.getElementById("hours-table");
     t.innerHTML = C.horaires.map(function(h){

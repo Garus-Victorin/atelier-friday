@@ -38,6 +38,13 @@ window.CONFIG = {
 
   presentation: "Maître AVERY dirige le cabinet avec une équipe de juristes dédiés. Notre approche : écoute, clarté et défense de vos intérêts. Nous accompagnons particuliers et entreprises dans toutes leurs démarches juridiques, du conseil à la représentation en justice.",
 
+  photos: [
+    { src: "assets/office-1.webp", alt: "Bureau du cabinet", legende: "Bureau" },
+    { src: "assets/office-2.webp", alt: "Salle de consultation", legende: "Consultation" },
+    { src: "assets/office-3.webp", alt: "Accueil du cabinet", legende: "Accueil" },
+    { src: "assets/office-4.webp", alt: "Salle de réunion", legende: "Réunion" }
+  ],
+
   distinctions: [
     "Cabinet fondé en 2010 par Maître AVERY",
     "Accompagnement de plus de 200 entreprises",
