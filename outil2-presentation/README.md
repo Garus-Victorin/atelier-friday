@@ -1,4 +1,4 @@
-# Cabinet Maître Akoha — Page de présentation
+# Cabinet AVERY & Associés — Page de présentation
 
 Page vitrine unique, sans serveur ni base de données. Conçue pour être trouvée sur Google et envoyer un message WhatsApp au cabinet.
 
@@ -12,27 +12,26 @@ python -m http.server 8080
 
 Puis `http://localhost:8080`.
 
-## Informations du cabinet
+## Informations du cabinet (fictif)
 
-- **Nom** : Cabinet Maître Akoha
-- **Avocat** : Maître Valentin AKOHA — Avocat au Barreau du Bénin depuis 2012
-- **Adresse** : Carré 0357, Quartier Akpakpa Suru-Léré, 04 BP 1507 Cadjèhoun, Cotonou, Bénin
-- **Tél** : +229 97 44 66 06
-- **Email** : valentin.akoha@barreaudubenin.bj
+- **Nom** : Cabinet AVERY & Associés
+- **Avocat** : Maître AVERY — Avocat au Barreau de Cotonou
+- **Adresse** : Rue des Jardins, Cocody, Cotonou, Bénin
+- **Tél** : +229 01 00 00 00 00
+- **Email** : contact@cabinet-avery.bj
 - **Horaires** : Lun-Ven 08h00-18h00, Sam-Dim fermé
-- **Distinction** : Avocat-conseil principal de l'association Roi de Paix (aide aux démunis et orphelins). Lauréat des Trophées Pro Bono 2023.
+- **Distinction** : Cabinet fondé en 2010, accompagnement de plus de 200 entreprises
 
 ## Structure de la page
 
 1. **Hero** — Nom du cabinet, slogan, 2 boutons (WhatsApp / Appeler).
-2. **Expertises** — 8 domaines (Droit civil, Famille, Travail, Affaires, Pénal, Fiscal, Immobilier, International).
-3. **L'équipe** — Maître Valentin AKOHA.
-4. **Distinctions** — Avocat au Barreau depuis 2012, Roi de Paix, Trophées Pro Bono 2023.
-5. **Le cabinet** — Présentation en 2-3 phrases.
-6. **Galerie** — 4 photos avec lightbox.
-7. **Horaires** — Tableau lun-ven, sam-dim fermé.
-8. **Adresse** — Adresse + bouton Itinéraire (Google Maps) + téléphone + email.
-9. **Footer CTA** — Rappel WhatsApp + mentions légales.
+2. **Expertises** — 6 domaines (Droit des affaires, Famille, Travail, Immobilier, Civil, Pénal).
+3. **Distinctions** — Fondation 2010, 200+ entreprises, Membre du Barreau.
+4. **Le cabinet** — Présentation en 2-3 phrases.
+5. **Galerie** — 4 photos avec lightbox.
+6. **Horaires** — Tableau lun-ven, sam-dim fermé. Statut en temps réel.
+7. **Adresse** — Adresse + bouton Voir sur Maps + téléphone + email.
+8. **Footer CTA** — Rappel WhatsApp + mentions légales.
 
 ## Message WhatsApp généré
 
@@ -72,7 +71,7 @@ Aucune modification de `app.js` ou `index.html` n'est nécessaire.
 ## Notes
 
 - Zéro bibliothèque externe : HTML/CSS/JS natif uniquement.
-- Images WebP, toutes < 140 Ko. Total page < 1 Mo.
+- Images WebP, toutes < 93 Ko. Total page < 1 Mo.
 - SEO : title, description, JSON-LD LegalService, sitemap, robots.
 - Le lien Google Maps utilise `maps.google.com/?q=` (pas d'embed iframe lourd).
 - Mentions légales : "Site vitrine — informations non contractuelles, pas de conseil juridique en ligne."
