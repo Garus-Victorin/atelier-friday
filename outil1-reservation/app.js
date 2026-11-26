@@ -53,7 +53,7 @@
   }); }
   function header(){
     var pct = (state.step / 5) * 100;
-    return '<header class="top"><h1>' + esc(C.nom) + '</h1><p>' + esc(C.slogan) + '</p>' +
+    return '<header class="top"><img class="logo" src="assets/logo.svg" width="56" height="56" alt=""><h1>' + esc(C.nom) + '</h1><p>' + esc(C.slogan) + '</p>' +
       '<div class="progress" role="progressbar" aria-valuenow="' + Math.round(pct) + '" aria-valuemin="0" aria-valuemax="100">' +
       '<span style="width:' + pct + '%"></span></div></header>';
   }
