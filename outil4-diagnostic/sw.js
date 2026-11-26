@@ -1,5 +1,5 @@
-var CACHE = "diag-v1";
-var ASSETS = ["./", "index.html", "style.css", "app.js", "config.js", "manifest.json"];
+var CACHE = "diag-v4";
+var ASSETS = ["./", "index.html", "style.css", "app.js", "config.js", "manifest.json", "assets/favicon-96x96.webp"];
 self.addEventListener("install", function(e){
   e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(ASSETS); }));
   self.skipWaiting();

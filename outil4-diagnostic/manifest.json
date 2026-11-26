@@ -1,6 +1,6 @@
 {
-  "name": "Assistant IA de diagnostic — LEBIATECH",
-  "short_name": "Diagnostic IA",
+  "name": "Assistant de diagnostic — LEBIATECH",
+  "short_name": "Diagnostic",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f0f2f5",

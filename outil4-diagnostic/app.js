@@ -43,11 +43,7 @@
     if (type === "ai") {
       var avatarImg = document.createElement("img");
       avatarImg.src = "assets/favicon-96x96.webp";
-      avatarImg.alt = "IA";
-      avatarImg.style.width = "100%";
-      avatarImg.style.height = "100%";
-      avatarImg.style.borderRadius = "50%";
-      avatarImg.style.objectFit = "cover";
+      avatarImg.alt = "";
       avatar.appendChild(avatarImg);
     } else {
       avatar.textContent = "V";
@@ -70,11 +66,7 @@
     avatar.className = "msg-avatar";
     var avatarImg = document.createElement("img");
     avatarImg.src = "assets/favicon-96x96.webp";
-    avatarImg.alt = "IA";
-    avatarImg.style.width = "100%";
-    avatarImg.style.height = "100%";
-    avatarImg.style.borderRadius = "50%";
-    avatarImg.style.objectFit = "cover";
+    avatarImg.alt = "";
     avatar.appendChild(avatarImg);
     var bubble = document.createElement("div");
     bubble.className = "msg-bubble";
@@ -96,6 +88,7 @@
       return;
     }
     var q = C.questions[currentQ];
+    progress();
     showTyping();
     setTimeout(function(){
       hideTyping();
@@ -155,11 +148,7 @@
     avatar.className = "msg-avatar";
     var avatarImg = document.createElement("img");
     avatarImg.src = "assets/favicon-96x96.webp";
-    avatarImg.alt = "IA";
-    avatarImg.style.width = "100%";
-    avatarImg.style.height = "100%";
-    avatarImg.style.borderRadius = "50%";
-    avatarImg.style.objectFit = "cover";
+    avatarImg.alt = "";
     avatar.appendChild(avatarImg);
     var bubble = document.createElement("div");
     bubble.className = "msg-bubble";
@@ -177,7 +166,7 @@
     errorArea.hidden = false;
     $("error-text").textContent = T.msg_erreur;
     var fabWa = $("error-wa");
-    fabWa.href = "https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent("Bonjour, j'ai un problème avec l'assistant IA de diagnostic.");
+    fabWa.href = "https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent("Bonjour, j'ai un problème avec l'assistant de diagnostic.");
     fabWa.classList.add("visible");
     fabWa.addEventListener("click", function(e){ e.preventDefault(); window.location.href = fabWa.href; });
   }
@@ -279,16 +268,17 @@
     var html = '<h2 class="result-title"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> ' + T.msg_fin + '</h2>';
     pistes.forEach(function(p, i){
       html += '<div class="result-piste">';
-      html += '<h3><span class="piste-num">' + (i + 1) + '</span> ' + esc(p.titre) + ' <span style="font-size:11px;color:var(--gold);font-weight:600">' + esc(p.priorite) + '</span></h3>';
+      html += '<h3><span class="piste-num">' + (i + 1) + '</span><span>' + esc(p.titre) + '<small>' + esc(p.priorite) + '</small></span></h3>';
       html += '<p>' + esc(p.texte) + '</p>';
       html += '<div class="lebia"><strong>LEBIATECH :</strong> ' + esc(p.lebia) + '</div>';
       html += '</div>';
     });
     resultContent.innerHTML = html;
+    progress(true);
 
     $("btn-reserver").href = C.contact_url;
     $("btn-reserver").addEventListener("click", function(e){ e.preventDefault(); window.location.href = C.contact_url; });
-    $("btn-whatsapp").href = "https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent("Bonjour, j'ai fait le diagnostic IA sur votre site. Voici mes résultats : " + pistes.map(function(p){ return p.titre; }).join(", ") + ". Je souhaite en savoir plus.");
+    $("btn-whatsapp").href = "https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent("Bonjour, j'ai fait le diagnostic sur votre site. Voici mes résultats : " + pistes.map(function(p){ return p.titre; }).join(", ") + ". Je souhaite en savoir plus.");
     $("btn-whatsapp").addEventListener("click", function(e){ e.preventDefault(); window.location.href = $("btn-whatsapp").href; });
     $("btn-recommencer").addEventListener("click", function(){ location.reload(); });
   }
@@ -303,6 +293,14 @@
   inputText.placeholder = T.placeholder;
   $("btn-reserver").innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ' + T.btn_reserver;
   $("btn-whatsapp").innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2z"/></svg> ' + T.btn_whatsapp;
+
+  function progress(done){
+    var n = C.questions.length, k = done ? n : Math.min(currentQ + 1, n);
+    var txt = $("progress-txt"), bar = $("progress-bar");
+    if (txt) txt.textContent = done ? "terminé" : k + " / " + n;
+    if (bar) bar.style.transform = "scaleX(" + (done ? 1 : (k - 1) / n) + ")";
+  }
+  progress();
 
   // Start conversation
   setTimeout(function(){

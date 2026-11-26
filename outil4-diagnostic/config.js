@@ -1,6 +1,6 @@
 window.CONFIG = {
   nom: "LEBIATECH",
-  slogan: "Assistant IA de diagnostic",
+  slogan: "Assistant de diagnostic",
   whatsapp: "22962555818",
   contact_url: "https://lebiatech.com/contact",
   max_messages: 20,
@@ -9,7 +9,7 @@ window.CONFIG = {
   questions: [
     {
       id: "activite",
-      texte: "Bonjour ! Je suis l'assistant IA de LEBIATECH. Je vais vous poser quelques questions pour vous aider à identifier vos priorités. Commençons.\n\nQuelle est votre activité principale ?",
+      texte: "Bonjour ! Je suis l'assistant de diagnostic de LEBIATECH. Je vais vous poser quelques questions pour vous aider à identifier vos priorités. Commençons.\n\nQuelle est votre activité principale ?",
       type: "choix",
       options: [
         { label: "Commerce / Vente", value: "commerce" },
@@ -86,8 +86,8 @@ window.CONFIG = {
   ],
 
   textes: {
-    titre: "Assistant IA de diagnostic",
-    intro: "Je suis un assistant IA. Je vous pose quelques questions pour vous aider à prioriser vos actions. Je ne promets aucun résultat et ne donne aucun prix.",
+    titre: "Assistant de diagnostic",
+    intro: "Je suis un assistant de diagnostic. Je vous pose quelques questions pour vous aider à prioriser vos actions. Je ne promets aucun résultat et ne donne aucun prix.",
     placeholder: "Tapez votre réponse...",
     btn_envoyer: "Envoyer",
     btn_recommencer: "Recommencer",
@@ -96,6 +96,6 @@ window.CONFIG = {
     msg_limite: "Vous avez atteint la limite de messages pour cette session. Pour aller plus loin, réservez un diagnostic gratuit.",
     msg_erreur: "L'assistant rencontre un problème technique. Vous pouvez nous contacter directement sur WhatsApp.",
     msg_fin: "Voici votre diagnostic en 3 pistes, classées par priorité :",
-    disclaimer: "Cet assistant est propulsé par une IA. Les recommandations sont données à titre indicatif. Aucune donnée n'est stockée sans votre accord."
+    disclaimer: "Les recommandations sont données à titre indicatif. Aucune donnée n'est envoyée sans votre accord."
   }
 };
