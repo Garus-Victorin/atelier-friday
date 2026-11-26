@@ -8,11 +8,27 @@
   function load(){
     try {
       var raw = localStorage.getItem(KEY);
-      if (!raw) return { version: 1, clients: [] };
+      if (!raw) return demo();
       var d = JSON.parse(raw);
       if (!d || !Array.isArray(d.clients)) return { version: 1, clients: [] };
       return d;
     } catch(e){ return { version: 1, clients: [] }; }
+  }
+  function demo(){
+    if (!Array.isArray(CFG.demo) || !CFG.demo.length) return { version: 1, clients: [] };
+    function jour(n){ var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() + n); return ymd(d); }
+    var d = { version: 1, clients: CFG.demo.map(function(x, i){
+      var paye = (x.paiements || []).reduce(function(s, p){ return s + p.montant; }, 0);
+      var reste = Math.max(0, x.montant - paye);
+      return {
+        id: "demo" + i, nom: x.nom, montant: x.montant, echeance: jour(x.echeance),
+        telephone: x.telephone || "", motif: x.motif || "", reste: reste,
+        statut: reste <= 0 ? "paye" : paye > 0 ? "partiel" : "du",
+        historique: (x.paiements || []).map(function(p){ return { date: jour(p.jour), type: "paiement", montant: p.montant }; })
+      };
+    }) };
+    try { localStorage.setItem(KEY, JSON.stringify(d)); } catch(e){}
+    return d;
   }
   function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
 
@@ -50,6 +66,20 @@
     sheetForm: $("sheet-form"), sheetDetail: $("sheet-detail"), sheetPart: $("sheet-part"),
     sheetEdit: $("sheet-edit"), toast: $("toast"), search: $("search")
   };
+
+  var shown = null;
+  function countTo(el, end){
+    var start = shown === null ? 0 : shown;
+    shown = end;
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || start === end) { el.textContent = fmt(end); return; }
+    var t0 = performance.now(), dur = 1000;
+    (function tick(now){
+      var p = Math.min((now - t0) / dur, 1), e = p === 1 ? 1 : 1 - Math.pow(2, -10 * p);
+      el.textContent = fmt(Math.round(start + (end - start) * e));
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
 
   function toast(msg){
     els.toast.textContent = msg; els.toast.classList.add("show");
@@ -98,7 +128,10 @@
   }
 
   function render(){
-    els.total.textContent = fmt(totalDu());
+    countTo(els.total, totalDu());
+    var retard = db.clients.reduce(function(s, c){ return s + (stats(c).late ? c.reste : 0); }, 0);
+    $("kpi-retard").textContent = fmt(retard);
+    $("kpi-paye").textContent = fmt(totalPaye());
     if (els.totalCount) {
       var n = db.clients.length;
       els.totalCount.textContent = n === 0 ? "" : (n + " créance" + (n > 1 ? "s" : ""));
@@ -114,14 +147,16 @@
       els.empty.querySelector("p").textContent = "Aucune créance pour le moment";
     }
 
-    sorted.forEach(function(c){
+    sorted.forEach(function(c, i){
       var li = document.createElement("li");
+      li.style.setProperty("--n", i);
       var b = badge(c);
       var s = stats(c);
       li.className = "item" + (s.late ? " overdue" : "");
       li.innerHTML =
+        '<div class="av ' + b.cls + '" aria-hidden="true">' + esc(c.nom.trim().charAt(0).toUpperCase()) + '</div>' +
         '<div class="left"><div class="name">' + esc(c.nom) + '</div>' +
-        '<div class="meta">' + (c.motif ? esc(c.motif) + " · " : "") + 'éch. ' + fmtDate(c.echeance) + '</div></div>' +
+        '<div class="meta">' + (c.motif ? esc(c.motif) + ", " : "") + 'pour le ' + fmtDate(c.echeance) + '</div></div>' +
         '<div class="right"><div class="reste">' + fmt(c.reste) + '</div>' +
         '<span class="badge ' + b.cls + '">' + b.txt + '</span></div>';
       li.addEventListener("click", function(){ openDetail(c.id); });
@@ -176,7 +211,7 @@
       c.historique.forEach(function(m){
         var li = document.createElement("li");
         var txt = m.type === "paiement" ? ("Paiement " + fmt(m.montant)) : "Relance WhatsApp";
-        li.innerHTML = '<span>' + esc(txt) + ' · ' + fmtDate(m.date) + '</span>';
+        li.innerHTML = '<span>' + esc(txt) + '</span><span class="tag">' + fmtDate(m.date) + '</span>';
         h.appendChild(li);
       });
     }
@@ -355,5 +390,7 @@
     toast("Export Excel téléchargé");
   }
 
+  els.list.classList.add("intro");
   render();
+  setTimeout(function(){ els.list.classList.remove("intro"); }, 1200);
 })();

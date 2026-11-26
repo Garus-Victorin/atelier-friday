@@ -1,5 +1,5 @@
-var CACHE = "creances-v1";
-var ASSETS = ["./", "index.html", "style.css", "app.js", "manifest.json"];
+var CACHE = "creances-v3";
+var ASSETS = ["./", "index.html", "style.css", "app.js", "config.js", "manifest.json"];
 self.addEventListener("install", function(e){
   e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(ASSETS); }));
   self.skipWaiting();

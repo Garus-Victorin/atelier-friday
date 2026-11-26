@@ -10,7 +10,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="top">
@@ -18,19 +18,23 @@
       <div class="top-row">
         <div class="brand">
           <div class="brand-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true"><circle cx="32" cy="32" r="22" fill="currentColor"/><path d="M24.5 24.5A10.5 10.5 0 1 1 21.5 32M23 17v8h8" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <div>
             <h1>Qui me doit ?</h1>
-            <p class="sub" id="sub-titre">Camélia Hair — Cotonou</p>
+            <p class="sub" id="sub-titre">Camélia Hair, Cotonou</p>
           </div>
         </div>
-        <div class="total-card">
-          <span class="total-label">Total dû</span>
-          <span class="total-value" id="total-value">0 F</span>
-          <span class="total-count" id="total-count"></span>
-        </div>
       </div>
+      <div class="total">
+        <span class="total-label">On vous doit</span>
+        <span class="total-value" id="total-value">0 F</span>
+        <span class="total-count" id="total-count"></span>
+      </div>
+      <dl class="kpis">
+        <div><dt>en retard</dt><dd id="kpi-retard">0</dd></div>
+        <div><dt>déjà encaissé</dt><dd id="kpi-paye">0</dd></div>
+      </dl>
     </div>
   </header>
 
@@ -68,6 +72,7 @@
       <p>Aucune créance pour le moment</p>
       <p class="empty-hint">Appuyez sur + pour ajouter une cliente</p>
     </div>
+    <p class="by">Outil réalisé par <a href="https://lebiatech.com" target="_blank" rel="noopener">LEBIATECH</a></p>
   </main>
 
   <button id="btn-add" class="fab" aria-label="Ajouter une créance">
@@ -78,7 +83,7 @@
     <form id="form" class="sheet-inner">
       <div class="sheet-header">
         <h2>Nouvelle créance</h2>
-        <button type="button" class="sheet-close" id="form-cancel" aria-label="Fermer">✕</button>
+        <button type="button" class="sheet-close" id="form-cancel" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
       <div class="field">
         <label>Nom de la cliente *</label>
@@ -112,7 +117,7 @@
     <div class="sheet-inner">
       <div class="sheet-header">
         <h2 id="d-titre">Détail</h2>
-        <button type="button" class="sheet-close" id="d-back" aria-label="Fermer">✕</button>
+        <button type="button" class="sheet-close" id="d-back" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
       <div class="detail-grid">
         <div class="detail-item">
@@ -144,7 +149,7 @@
           <span class="detail-value" id="d-statut"></span>
         </div>
       </div>
-      <h3 class="sec-title">Historique des paiements</h3>
+      <h3 class="sec-title">Historique</h3>
       <ul id="d-histo" class="histo"></ul>
       <div class="sheet-actions">
         <button class="btn btn-primary" id="d-pay">
@@ -177,7 +182,7 @@
     <form id="form-part" class="sheet-inner">
       <div class="sheet-header">
         <h2>Paiement partiel</h2>
-        <button type="button" class="sheet-close" id="p-cancel" aria-label="Fermer">✕</button>
+        <button type="button" class="sheet-close" id="p-cancel" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
       <p class="hint" id="p-reste"></p>
       <div class="field">
@@ -194,7 +199,7 @@
     <form id="form-edit" class="sheet-inner">
       <div class="sheet-header">
         <h2>Modifier la créance</h2>
-        <button type="button" class="sheet-close" id="e-cancel" aria-label="Fermer">✕</button>
+        <button type="button" class="sheet-close" id="e-cancel" aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
       <div class="field">
         <label>Nom de la cliente *</label>
