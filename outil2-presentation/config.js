@@ -45,6 +45,12 @@ window.CONFIG = {
     { src: "assets/office-4.webp", alt: "Salle de réunion", legende: "Réunion" }
   ],
 
+  chiffres: [
+    { valeur: 200, suffixe: "+", libelle: "entreprises accompagnées" },
+    { valeur: 6, libelle: "domaines du droit" },
+    { valeur: 2010, compteur: false, libelle: "année de création" }
+  ],
+
   distinctions: [
     "Cabinet fondé en 2010 par Maître AVERY",
     "Accompagnement de plus de 200 entreprises",

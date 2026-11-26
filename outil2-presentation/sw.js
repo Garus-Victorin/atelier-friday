@@ -1,4 +1,4 @@
-var CACHE = "cabinet-v1";
+var CACHE = "cabinet-v2";
 var ASSETS = ["./", "index.html", "style.css", "app.js", "config.js", "manifest.json"];
 self.addEventListener("install", function(e){
   e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(ASSETS); }));

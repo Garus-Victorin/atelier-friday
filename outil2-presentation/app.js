@@ -13,7 +13,15 @@
   }
 
   function fill(){
-    document.getElementById("hero-nom").textContent = C.nom;
+    var h1 = document.getElementById("hero-nom");
+    h1.setAttribute("aria-label", C.nom);
+    h1.innerHTML = C.nom.split(" ").map(function(w, i){
+      return '<span class="w" aria-hidden="true"><span style="--i:' + i + '"' + (w === "&" || w.indexOf("Associ") === 0 ? ' class="amp"' : '') + '>' + esc(w) + '</span></span>';
+    }).join(" ");
+    var brandNom = document.getElementById("brand-nom");
+    if (brandNom) brandNom.textContent = C.nom.split(" & ")[0];
+    var heroImg = document.getElementById("hero-img");
+    if (heroImg && C.photos && C.photos[0]) { heroImg.src = C.photos[0].src; heroImg.alt = C.photos[0].alt; }
     document.getElementById("hero-slogan").textContent = C.slogan;
     document.getElementById("hero-baseline").textContent = C.baseline || "";
     document.title = C.nom + " — Avocat à " + C.ville + " — " + C.slogan;
@@ -23,7 +31,7 @@
       C.nom + ", avocats à " + C.ville + ". " + C.slogan +
       " Consultation sur rendez-vous. Contactez-nous sur WhatsApp.");
 
-    ["hero-wa","footer-wa","fab-wa"].forEach(function(id){
+    ["hero-wa","cta-wa","fab-wa"].forEach(function(id){
       var el = document.getElementById(id);
       if (!el) return;
       el.href = waUrl();
@@ -33,24 +41,32 @@
     document.getElementById("hero-tel").innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> ' + T.cta_appeler;
 
     var grid = document.getElementById("services-grid");
-    var svgIcons = [
-      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 12h18M5.5 5.5l13 13M18.5 5.5l-13 13"/></svg>',
-      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
-      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
-      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h.01M9 14h.01M15 10h.01M15 14h.01"/></svg>',
-      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
-      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
-      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>',
-      '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'
-    ];
+    var ico = function(d){ return '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
+    var icons = {
+      affaires: ico('<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>'),
+      famille: ico('<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15.5 14.1c.5-.1 1-.1 1.5-.1 2.5 0 4 2 4 5"/>'),
+      travail: ico('<path d="M3 18h18M5 18v-3a7 7 0 0 1 14 0v3M10 8.4V6h4v2.4"/>'),
+      immobilier: ico('<path d="M4 21V5l8-3v19M12 9h8v12M2 21h20M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2"/>'),
+      civil: ico('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>'),
+      penal: ico('<path d="m14 4 6 6M11.5 6.5l6 6M12.8 5.2l-5 5 6 6 5-5zM10.3 12.7 3 20M13 21h8"/>')
+    };
+    var fallback = ico('<path d="M12 3v18M7 21h10M4 7h16M4 7l-3 7h6zM20 7l-3 7h6z"/>');
     grid.innerHTML = C.services.map(function(s, i){
-      return '<article class="card"><div class="card-icon">' + svgIcons[i % svgIcons.length] + '</div><h3>' + esc(s.titre) + '</h3><p>' + esc(s.desc) + '</p></article>';
+      return '<article class="service" data-reveal><div class="ico">' + (icons[s.id] || fallback) + '</div><div><h3>' + esc(s.titre) + '</h3><p>' + esc(s.desc) + '</p></div></article>';
     }).join("");
 
     var distList = document.getElementById("distinctions-list");
     if (distList && C.distinctions) {
       distList.innerHTML = C.distinctions.map(function(d){
-        return '<li>' + esc(d) + '</li>';
+        return '<li><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg><span>' + esc(d) + '</span></li>';
+      }).join("");
+    }
+
+    var fig = document.getElementById("chiffres");
+    if (fig && C.chiffres) {
+      fig.innerHTML = C.chiffres.map(function(c){
+        var n = c.compteur === false ? esc(c.valeur) : '<span data-count="' + esc(c.valeur) + '">' + esc(c.valeur) + '</span>';
+        return '<div><dt>' + esc(c.libelle) + '</dt><dd>' + n + esc(c.suffixe || "") + '</dd></div>';
       }).join("");
     }
 
@@ -72,9 +88,10 @@
     }
 
     var t = document.getElementById("hours-table");
+    var jourDuJour = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"][new Date(new Date().toLocaleString("en-US", { timeZone: "Africa/Porto-Novo" })).getDay()];
     t.innerHTML = C.horaires.map(function(h){
       var v = (h.ouvre && h.ferme) ? (h.ouvre + " – " + h.ferme) : "Fermé";
-      return '<tr><td>' + esc(h.jour) + '</td><td>' + esc(v) + '</td></tr>';
+      return '<tr' + (h.jour === jourDuJour ? ' class="today"' : '') + '><td>' + esc(h.jour) + '</td><td>' + esc(v) + '</td></tr>';
     }).join("");
     document.getElementById("hours-note").textContent = C.horaires_note || "";
 
@@ -136,7 +153,7 @@
     var footerBaseline = document.getElementById("footer-baseline");
     if (footerBaseline) footerBaseline.textContent = C.baseline || C.slogan;
     var footerAddr = document.getElementById("footer-addr");
-    if (footerAddr) footerAddr.textContent = C.adresse.rue + ", " + C.adresse.ville + ", " + C.adresse.code_postal;
+    if (footerAddr) footerAddr.textContent = C.adresse.rue + ", " + C.adresse.ville + (C.adresse.code_postal ? " " + C.adresse.code_postal : "") + ", " + C.pays;
     var footerMap = document.getElementById("footer-map");
     if (footerMap) { footerMap.href = C.adresse.lien_carte; }
     var footerTel = document.getElementById("footer-tel");
@@ -188,4 +205,43 @@
   document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeLightbox(); });
 
   fill();
+
+  var root = document.documentElement;
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  root.classList.add("js");
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add("ready"); }); });
+
+  function count(el){
+    var end = +el.dataset.count;
+    if (reduce || !(end > 1)) { el.textContent = el.dataset.count; return; }
+    var t0 = performance.now(), dur = 1400;
+    (function tick(now){
+      var p = Math.min((now - t0) / dur, 1);
+      el.textContent = Math.round(end * (p === 1 ? 1 : 1 - Math.pow(2, -10 * p)));
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        en.target.querySelectorAll("[data-count]").forEach(count);
+        io.unobserve(en.target);
+      });
+    }, { threshold: .15, rootMargin: "0px 0px -6% 0px" });
+    document.querySelectorAll("[data-reveal]").forEach(function(el){ io.observe(el); });
+
+    var links = document.querySelectorAll(".quicknav a");
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        links.forEach(function(a){ a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.id); });
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    links.forEach(function(a){ var sec = document.querySelector(a.getAttribute("href")); if (sec) spy.observe(sec); });
+  } else {
+    document.querySelectorAll("[data-reveal]").forEach(function(el){ el.classList.add("in"); });
+  }
 })();
