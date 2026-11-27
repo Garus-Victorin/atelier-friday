@@ -21,11 +21,13 @@ body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1
 .total-label{font-size:16px;font-weight:500;color:rgba(255,255,255,.8)}
 .total-value{font-size:clamp(40px,11vw,60px);line-height:1;letter-spacing:-.04em;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
 .total-count{font-size:14px;color:rgba(255,255,255,.7);margin-top:8px}
-.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}
 .kpis div{background:var(--brand-dark);border-radius:12px;padding:12px}
 .kpis dt{font-size:12px;line-height:16px;color:rgba(255,255,255,.7)}
-.kpis dd{font-size:18px;line-height:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.kpis dd{font-size:18px;line-height:24px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:4px}
+.kpis dd small{display:block;font-size:12px;line-height:16px;font-weight:500;opacity:.75}
 .kpis div:first-child dd{color:#fecaca}
+.kpis div:nth-child(2) dd{color:#fde68a}
 .kpis div:last-child dd{color:#bbf7d0}
 
 /* bandeau données */

@@ -81,6 +81,11 @@
     })(t0);
   }
 
+  function kpi(id, n){
+    var el = $(id);
+    el.innerHTML = n.toLocaleString("fr-FR") + "<small>" + esc(DEV) + "</small>";
+  }
+
   function toast(msg){
     els.toast.textContent = msg; els.toast.classList.add("show");
     setTimeout(function(){ els.toast.classList.remove("show"); }, 2400);
@@ -130,8 +135,10 @@
   function render(){
     countTo(els.total, totalDu());
     var retard = db.clients.reduce(function(s, c){ return s + (stats(c).late ? c.reste : 0); }, 0);
-    $("kpi-retard").textContent = fmt(retard);
-    $("kpi-paye").textContent = fmt(totalPaye());
+    var avenir = db.clients.reduce(function(s, c){ return s + (c.reste > 0 && !stats(c).late ? c.reste : 0); }, 0);
+    kpi("kpi-retard", retard);
+    kpi("kpi-avenir", avenir);
+    kpi("kpi-paye", totalPaye());
     if (els.totalCount) {
       var n = db.clients.length;
       els.totalCount.textContent = n === 0 ? "" : (n + " créance" + (n > 1 ? "s" : ""));
